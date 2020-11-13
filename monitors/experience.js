@@ -1,9 +1,10 @@
 const {Monitor} = require('klasa');
 
 module.exports = class extends Monitor {
+	
 	constructor(...args) {
 		super(...args, {
-
+			ignoreOthers: false
 		})
 	}
 
@@ -20,6 +21,7 @@ module.exports = class extends Monitor {
 
 		if (currentLevel !== nextLevel) {
 			await message.sendMessage(`${message.author.tag} leveled up!`)
-		} 
+		}
 	}
+
 }
