@@ -12,6 +12,6 @@ module.exports = class extends Command {
 	async run(message, [role]) {
 		await message.guild.settings.update('roles.muted', role, message.guild);
 
-		return message.sendMessage(`Successfully changed muterole to ${role.name}.`);
+		return message.send(`Successfully changed muterole to ${role.name}.`);
 	}
 }

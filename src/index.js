@@ -3,7 +3,10 @@ const {KlasaClient} = require('klasa');
 
 const client = new KlasaClient(require('./config'));
 
-KlasaClient.defaultGuildSchema.add('roles', schema => schema.add('muted', 'role'));
+KlasaClient.defaultGuildSchema
+	.add('roles', schema => schema.add('muted', 'role'))
+	.add('roles', schema => schema.add('moderator', 'role'))
+
 KlasaClient.defaultUserSchema
 	.add('experience', 'Integer', {
 		default: 0,
@@ -13,7 +16,5 @@ KlasaClient.defaultUserSchema
 		default: 0,
 		configurable: false
 	});
-
-console.log(process.env)
 
 client.login(process.env.token);
