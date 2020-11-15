@@ -7,6 +7,9 @@ KlasaClient.defaultGuildSchema
 	.add('roles', schema => {
 		schema.add('moderator', 'role');
 		schema.add('muted', 'role');
+	})
+	.add('levels', schema => {
+		schema.add('channelBlacklist', 'channel', {array: true, configurable: false});
 	});
 
 KlasaClient.defaultUserSchema.add('levels', schema => {

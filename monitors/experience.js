@@ -9,6 +9,8 @@ module.exports = class extends Monitor {
 	}
 
 	async run(message) {
+		const blacklist = message.guild.settings
+		
 		let userStats = message.author.settings;
 		
 		if (Date.now() - userStats.levels.lastMessage > 0) {	
