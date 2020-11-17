@@ -10,7 +10,8 @@ KlasaClient.defaultGuildSchema
 	})
 	.add('levels', schema => {
 		schema.add('channelBlacklist', 'channel', {array: true, configurable: false});
-	});
+	})
+	.add('bannedWords', 'string', {array: true});
 
 KlasaClient.defaultUserSchema.add('levels', schema => {
 	schema.add('experience', 'Integer', {
