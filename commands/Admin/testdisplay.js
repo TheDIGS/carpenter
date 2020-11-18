@@ -4,15 +4,13 @@ const {MessageEmbed} = require('discord.js');
 module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
-			name: 'testdisplay'
+			name: 'testdisplay',
+			usage: '<arg1:string> <arg2:string> <arg3:string> [...]',
+			usageDelim: ' ',
 		})
 	}
 
 	run(message) {
-		const display = new RichDisplay(new MessageEmbed());
-
-		display.setTitle(`Title`)
-
-		return message.send(display);
+		return message.send(`I'm running at **${this.client.ws.ping}** ms!`);	
 	}
 }
