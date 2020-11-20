@@ -1,5 +1,6 @@
 const {Command} = require('klasa');
 const {Collection} = require('discord.js');
+const {readdirSync} = require('fs');
 
 module.exports = class extends Command {
 	
@@ -10,14 +11,19 @@ module.exports = class extends Command {
 	}
 
 	async run(message) {
-		const users = this.client.users.cache;
 		const ranks = new Collection();
-
-		for (const user of users) {
-			ranks.set(user.id, user);
-		}
 		
-		console.log(ranks);
+		const rankFiles = await readdirSync('/home/runner/carpenterjs/bwd/provider/json/users');
+
+		for (const file of rankFiles) {
+			const rank = require(`/home/runner/carpenterjs/bwd/provider/json/users/${file}`);
+
+			await ranks.set(rank.id, rank);
+		};
+
+		console.log(JSON.stringify(ranks, null, 4));
 	}
 
 }
+
+JSON.stringify()
