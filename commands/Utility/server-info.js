@@ -5,10 +5,12 @@ module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
+			name: 'server-info',
 			runIn: ['text'],
-			aliases: ['guild'],
-			description: 'Get information on the current server.'
+			aliases: ['guild', 'serverinfo'],
+			description: 'Get information about your current server.'
 		});
+
 		this.verificationLevels = [
 			'None',
 			'Low',
@@ -28,7 +30,7 @@ module.exports = class extends Command {
 	run(msg) {
 		return msg.sendEmbed(new MessageEmbed()
 			.setColor(0x00AE86)
-			.setThumbnail(msg.guild.iconURL())
+			.setThumbnail(msg.guild.iconURL({type: 'png', dynamic: true}))
 			.addField('❯ Name', msg.guild.name, true)
 			.addField('❯ ID', msg.guild.id, true)
 			.addField('❯ Creation Date', this.timestamp.display(msg.guild.createdAt), true)
