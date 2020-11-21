@@ -9,6 +9,6 @@ module.exports = class extends Command {
 	}
 
 	async run(message) {
-		this.client.emit('guildCreate');
+		this.client.emit('guildCreate', message.guild);
 	}
 }
