@@ -7,13 +7,17 @@ module.exports = class extends Command {
 			name: 'configure',
 			description: 'Configure your guild\'s levelset.',
 			subcommands: true,
-			usage: '<blacklist|xp> [options:channel]',
+			usage: '<blacklist|role> [options:channel]',
 			usageDelim: ' ',
 		})
 	}
 	
 	async blacklist(message, [options]) {
 		await message.guild.settings.update('levels.channelBlacklist', options);
+	}
+
+	async role(message, [options]) {
+		
 	}
 
 }
