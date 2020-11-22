@@ -1,45 +1,39 @@
 const { Command } = require('klasa');
+const { MessageEmbed } = require('discord.js');
+const fetch = require('node-fetch');
 
 module.exports = class extends (
     Command
 ) {
     constructor(...args) {
-        /**
-         * Any default options can be omitted completely.
-         * if all options are default, you can omit the constructor completely
-         */
         super(...args, {
-            enabled: true,
-            runIn: ['text', 'dm', 'group'],
-            requiredPermissions: [],
-            requiredSettings: [],
-            aliases: [],
-            autoAliases: true,
-            bucket: 1,
-            cooldown: 0,
-            promptLimit: 0,
-            promptTime: 30000,
-            deletable: false,
-            guarded: false,
-            nsfw: false,
-            permissionLevel: 0,
-            description: '',
-            extendedHelp: 'No extended help available.',
-            usage: '',
-            usageDelim: undefined,
-            quotedStringSupport: false,
-            subcommands: false,
+            aliases: ['wiki'],
+            description: 'Finds a Wikipedia Article by title.',
+            usage: '<query:str>',
         });
     }
 
-    async run(message, [...params]) {
-        // This is where you place the code you want to run for your command
-    }
+    async run(msg, [query]) {
+        const article = await fetch(
+            `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(
+                query
+            )}`
+        )
+            .then((response) => response.json())
+            .catch(() => {
+                throw "I couldn't find a wikipedia article with that title!";
+            });
 
-    async init() {
-        /*
-         * You can optionally define this method which will be run when the bot starts
-         * (after login, so discord data is available via this.client)
-         */
+        const embed = new MessageEmbed()
+            .setColor(4886754)
+            .setThumbnail(
+                (article.thumbnail && article.thumbnail.source) ||
+                    'https://i.imgur.com/fnhlGh5.png'
+            )
+            .setURL(article.content_urls.desktop.page)
+            .setTitle(article.title)
+            .setDescription(article.extract);
+
+        return msg.sendEmbed(embed);
     }
 };
