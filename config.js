@@ -1,3 +1,5 @@
+const { PermissionLevels } = require('klasa');
+
 require('dotenv').config();
 
 /**
@@ -175,6 +177,26 @@ exports.config = {
 	 * Klasa Schedule Options
 	 */
 	schedule: { interval: 60000 },
+
+	permissionLevels: new PermissionLevels()
+		.add(0, () => true)
+		.add(
+			5,
+			({ member }) => member && member.permissions.has('MANAGE_ROLES'),
+			{ fetch: true }
+		)
+		.add(
+			6,
+			({ member }) => member && member.permissions.has('MANAGE_GUILD'),
+			{ fetch: true }
+		)
+		.add(7, ({ member }) => member && member.id === member.guild.ownerID, {
+			fetch: true,
+		})
+		.add(9, ({ author, client }) => client.owners.has(author), {
+			break: true,
+		})
+		.add(10, ({ author, client }) => client.owners.has(author)),
 };
 
 // The token for this bot to login with

@@ -22,7 +22,7 @@ module.exports = class extends (
 			deletable: false,
 			guarded: false,
 			nsfw: false,
-			permissionLevel: 0,
+			permissionLevel: 6,
 			description: '',
 			extendedHelp: 'No extended help available.',
 			usage: '<role:role>',
