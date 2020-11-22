@@ -46,4 +46,6 @@ CarpenterClient.defaultUserSchema.add('levels', (schema) => {
 		});
 });
 
-new CarpenterClient(config).login(token);
+const client = new CarpenterClient(config);
+
+client.login(token);
