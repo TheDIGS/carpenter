@@ -21,7 +21,7 @@ module.exports = class extends (
         )
             .then((response) => response.json())
             .catch(() => {
-                throw "I couldn't find a wikipedia article with that title!";
+                throw `I couldn't find a wikipedia article with that title!`;
             });
 
         const embed = new MessageEmbed()
