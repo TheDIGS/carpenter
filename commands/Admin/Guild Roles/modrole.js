@@ -1,3 +1,4 @@
+const { MessageEmbed } = require('discord.js');
 const { Command } = require('klasa');
 
 module.exports = class extends (
@@ -33,6 +34,20 @@ module.exports = class extends (
 	}
 
 	async run(message, [role]) {
-		await message.guild.settings.update('roles.moderator', role);
+		const oldRole = message.guild.settings.get('roles.moderator');
+		console.log(oldRole);
+		await message.guild.settings.update(
+			'roles.moderator',
+			role,
+			message.guild
+		);
+
+		console.log(message.guild.settings);
+
+		return message.send(
+			new MessageEmbed()
+				.setTitle(`Update Successful`)
+				.setDescription(`Updated the moderator role to ${role}.`)
+		);
 	}
 };

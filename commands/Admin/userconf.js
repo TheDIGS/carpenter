@@ -8,12 +8,10 @@ module.exports = class extends (
 ) {
 	constructor(...args) {
 		super(...args, {
-			runIn: ['text'],
-			permissionLevel: 6,
 			guarded: true,
 			subcommands: true,
 			description: (language) =>
-				language.get('COMMAND_CONF_SERVER_DESCRIPTION'),
+				language.get('COMMAND_CONF_USER_DESCRIPTION'),
 			usage:
 				'<set|show:default|remove|reset> (key:key) (value:value) [...]',
 			usageDelim: ' ',
@@ -29,29 +27,29 @@ module.exports = class extends (
 	}
 
 	show(message, [key]) {
-		const path = this.client.gateways.guilds.getPath(key, {
+		const path = this.client.gateways.users.getPath(key, {
 			avoidUnconfigurable: true,
 			errors: false,
 			piece: null,
 		});
 		if (!path) return message.sendLocale('COMMAND_CONF_GET_NOEXT', [key]);
 		if (path.piece.type === 'Folder') {
-			return message.sendLocale('COMMAND_CONF_SERVER', [
+			return message.sendLocale('COMMAND_CONF_USER', [
 				key ? `: ${key.split('.').map(toTitleCase).join('/')}` : '',
 				codeBlock(
 					'asciidoc',
-					message.guild.settings.list(message, path.piece)
+					message.author.settings.list(message, path.piece)
 				),
 			]);
 		}
 		return message.sendLocale('COMMAND_CONF_GET', [
 			path.piece.path,
-			message.guild.settings.resolveString(message, path.piece),
+			message.author.settings.resolveString(message, path.piece),
 		]);
 	}
 
 	async set(message, [key, ...valueToSet]) {
-		const status = await message.guild.settings.update(
+		const status = await message.author.settings.update(
 			key,
 			valueToSet.join(' '),
 			message.guild,
@@ -61,7 +59,7 @@ module.exports = class extends (
 			this.check(message, key, status) ||
 			message.sendLocale('COMMAND_CONF_UPDATED', [
 				key,
-				message.guild.settings.resolveString(
+				message.author.settings.resolveString(
 					message,
 					status.updated[0].piece
 				),
@@ -70,7 +68,7 @@ module.exports = class extends (
 	}
 
 	async remove(message, [key, ...valueToRemove]) {
-		const status = await message.guild.settings.update(
+		const status = await message.author.settings.update(
 			key,
 			valueToRemove.join(' '),
 			message.guild,
@@ -80,7 +78,7 @@ module.exports = class extends (
 			this.check(message, key, status) ||
 			message.sendLocale('COMMAND_CONF_UPDATED', [
 				key,
-				message.guild.settings.resolveString(
+				message.author.settings.resolveString(
 					message,
 					status.updated[0].piece
 				),
@@ -89,16 +87,12 @@ module.exports = class extends (
 	}
 
 	async reset(message, [key]) {
-		const status = await message.guild.settings.reset(
-			key,
-			message.guild,
-			true
-		);
+		const status = await message.author.settings.reset(key, true);
 		return (
 			this.check(message, key, status) ||
 			message.sendLocale('COMMAND_CONF_RESET', [
 				key,
-				message.guild.settings.resolveString(
+				message.author.settings.resolveString(
 					message,
 					status.updated[0].piece
 				),
@@ -107,7 +101,7 @@ module.exports = class extends (
 	}
 
 	check(message, key, { errors, updated }) {
-		if (errors.length) return message.sendMessage(String(errors[0]));
+		if (errors.length) return message.sendMessage(errors[0]);
 		if (!updated.length)
 			return message.sendLocale('COMMAND_CONF_NOCHANGE', [key]);
 		return null;

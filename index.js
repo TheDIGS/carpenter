@@ -5,8 +5,6 @@ class CarpenterClient extends Client {
 	constructor(...args) {
 		super(...args);
 
-		console.log(CarpenterClient);
-
 		// Add any properties to your Klasa Client
 	}
 
