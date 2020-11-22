@@ -1,7 +1,7 @@
 {
     "name": "test-project",
     "version": "1.0.0",
-    "description": "test project lol",
+    "description": "A multi-purpose discord bot.",
     "main": "index.js",
     "dependencies": {
         "chalk": "^4.1.0",
@@ -11,18 +11,25 @@
     },
     "devDependencies": {},
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js"
     },
-    "keywords": [],
+    "keywords": [
+        "discord.js",
+        "discordjs",
+        "discordbot",
+        "klasa",
+        "discord-bot"
+    ],
     "author": "thedigs",
     "license": "ISC",
     "type": "commonjs",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/github.com/urmom.git"
+        "url": "git+https://github.com/github.com/thedigs/carpenter.git"
     },
     "bugs": {
-        "url": "https://github.com/github.com/urmom/issues"
+        "url": "https://github.com/github.com/thedigs/carpenter/issues"
     },
-    "homepage": "https://github.com/github.com/urmom#readme"
+    "homepage": "https://github.com/github.com/thedigs/carpenter#readme"
 }
