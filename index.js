@@ -13,8 +13,7 @@ class CarpenterClient extends Client {
 
 CarpenterClient.defaultGuildSchema
 	.add('roles', (schema) => {
-		schema.add('moderator', 'role');
-		schema.add('muted', 'role');
+		schema.add('moderator', 'role').add('muted', 'role');
 	})
 	.add('levels', (schema) => {
 		schema.add('channelBlacklist', 'channel', {
