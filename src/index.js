@@ -6,9 +6,15 @@ class Client extends KlasaClient {
 		super(...args);
 
 		// props
+
+		return this;
 	}
 
-	// methods
+	async log() {
+		console.log(`GUILD SCHEMA =>\n${super.gateways.guilds.schema}`)
+		.log(`USER SCHEMA =>\n${super.gateways.users.schema}`)
+		.log(`CLIENT SCHEMA =>\n${super.gateways.client.schema}`);
+	}
 }
 
 Client.defaultGuildSchema
@@ -47,4 +53,4 @@ Client.defaultUserSchema.add('levels', (schema) => {
 
 const client = new Client(config);
 
-client.login(token);
+client.login(process.env.TOKEN);
