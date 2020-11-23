@@ -1,29 +1,31 @@
-const { Client } = require('klasa');
+const { KlasaClient } = require('klasa');
 const { config, token } = require('./config');
 
-class CarpenterClient extends Client {
+class Client extends KlasaClient {
 	constructor(...args) {
 		super(...args);
 
-		// Add any properties to your Klasa Client
+		// props
 	}
 
-	// Add any methods to your Klasa Client
+	// methods
 }
 
-CarpenterClient.defaultGuildSchema
+Client.defaultGuildSchema
 	.add('roles', (schema) => {
 		schema.add('moderator', 'role').add('muted', 'role');
 	})
 	.add('levels', (schema) => {
-		schema.add('channelBlacklist', 'channel', {
-			array: true,
-			configurable: false,
-		});
+		schema
+			.add('channelBlacklist', 'channel', {
+				array: true,
+				configurable: false,
+			})
+			.add('roleRewards', 'any', { array: true });
 	})
 	.add('bannedWords', 'string', { array: true });
 
-CarpenterClient.defaultUserSchema.add('levels', (schema) => {
+Client.defaultUserSchema.add('levels', (schema) => {
 	schema
 		.add('experience', 'Integer', {
 			default: 0,
@@ -43,6 +45,6 @@ CarpenterClient.defaultUserSchema.add('levels', (schema) => {
 		});
 });
 
-const client = new CarpenterClient(config);
+const client = new Client(config);
 
 client.login(token);

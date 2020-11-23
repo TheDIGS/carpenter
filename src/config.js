@@ -190,7 +190,12 @@ exports.config = {
 			({ member }) => member && member.permissions.has('MANAGE_GUILD'),
 			{ fetch: true }
 		)
-		.add(7, ({ member }) => member && member.id === member.guild.ownerID, {
+		.add(
+			7,
+			({ member }) => member && member.permissions.has('ADMINISTRATOR'),
+			{ fetch: true }
+		)
+		.add(8, ({ member }) => member && member.id === member.guild.ownerID, {
 			fetch: true,
 		})
 		.add(9, ({ author, client }) => client.owners.has(author), {

@@ -16,7 +16,7 @@ module.exports = class extends Command {
 		await message.guild.settings.update('levels.channelBlacklist', options);
 	}
 
-	async role(message, [options]) {
+	async rewards(message, [options]) {
 		
 	}
 
