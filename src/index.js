@@ -10,11 +10,7 @@ class Client extends KlasaClient {
 		return this;
 	}
 
-	async log() {
-		console.log(`GUILD SCHEMA =>\n${super.gateways.guilds.schema}`)
-		.log(`USER SCHEMA =>\n${super.gateways.users.schema}`)
-		.log(`CLIENT SCHEMA =>\n${super.gateways.client.schema}`);
-	}
+	// methods
 }
 
 Client.defaultGuildSchema
