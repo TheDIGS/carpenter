@@ -1,12 +1,13 @@
 const { Command, Timestamp } = require('klasa');
 const { MessageEmbed } = require('discord.js');
-module.exports = class extends Command {
-
+module.exports = class extends (
+	Command
+) {
 	constructor(...args) {
 		super(...args, {
 			runIn: ['text'],
 			description: 'Get information on a role with an id or a mention.',
-			usage: '<Role:role>'
+			usage: '<Role:role>',
 		});
 		this.perms = {
 			ADMINISTRATOR: 'Administrator',
@@ -36,23 +37,35 @@ module.exports = class extends Command {
 			MUTE_MEMBERS: 'Mute Members',
 			DEAFEN_MEMBERS: 'Deafen Members',
 			MOVE_MEMBERS: 'Move Members',
-			USE_VAD: 'Use Voice Activity'
+			USE_VAD: 'Use Voice Activity',
 		};
 		this.timestamp = new Timestamp('dddd, MMMM d YYYY');
 	}
 
 	run(msg, [role]) {
-		const allPermissions = Object.entries(role.permissions.serialize()).filter(perm => perm[1]).map(([perm]) => this.perms[perm]).join(', ');
+		const allPermissions = Object.entries(role.permissions.serialize())
+			.filter((perm) => perm[1])
+			.map(([perm]) => this.perms[perm])
+			.join(', ');
 
-		return msg.sendEmbed(new MessageEmbed()
-			.setColor(role.hexColor || 0xFFFFFF)
-			.addField('❯ Name', role.name, true)
-			.addField('❯ ID', role.id, true)
-			.addField('❯ Color', role.hexColor || 'None', true)
-			.addField('❯ Creation Date', this.timestamp.display(role.createdAt), true)
-			.addField('❯ Hoisted', role.hoist ? 'Yes' : 'No', true)
-			.addField('❯ Mentionable', role.mentionable ? 'Yes' : 'No', true)
-			.addField('❯ Permissions', allPermissions || 'None'));
+		return msg.sendEmbed(
+			new MessageEmbed()
+				.setColor(role.hexColor || 0xffffff)
+				.addField('❯ Name', role.name, true)
+				.addField('❯ ID', role.id, true)
+				.addField('❯ Color', role.hexColor || 'None', true)
+				.addField(
+					'❯ Creation Date',
+					this.timestamp.display(role.createdAt),
+					true
+				)
+				.addField('❯ Hoisted', role.hoist ? 'Yes' : 'No', true)
+				.addField(
+					'❯ Mentionable',
+					role.mentionable ? 'Yes' : 'No',
+					true
+				)
+				.addField('❯ Permissions', allPermissions || 'None')
+		);
 	}
-
 };

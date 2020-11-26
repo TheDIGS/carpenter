@@ -62,4 +62,4 @@ Client.defaultUserSchema.add('levels', (schema) => {
 
 const client = new Client(config);
 
-client.login(process.env.TOKEN);
+client.login(token);
