@@ -25,7 +25,20 @@ Client.defaultGuildSchema
 			})
 			.add('roleRewards', 'any', { array: true });
 	})
-	.add('bannedWords', 'string', { array: true });
+	.add('bannedWords', 'string', { array: true })
+	.add('automod', (schema) => {
+		schema
+			.add('links', (schema) => {
+				schema
+					.add('channelBlacklist', 'channel', { array: true })
+					.add('userBlacklist', 'user', { array: true });
+			})
+			.add('links', (schema) => {
+				schema
+					.add('channelBlacklist', 'channel', { array: true })
+					.add('userBlacklist', 'user', { array: true });
+			});
+	});
 
 Client.defaultUserSchema.add('levels', (schema) => {
 	schema
