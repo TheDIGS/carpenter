@@ -1,5 +1,6 @@
 const { KlasaClient } = require('klasa');
 const { config, token } = require('./config');
+const { addGuildSchema, addUserSchema, addClientSchema } = require('./schema');
 
 class Client extends KlasaClient {
 	constructor(...args) {
@@ -10,56 +11,15 @@ class Client extends KlasaClient {
 		return this;
 	}
 
-	// methods
+	async start() {
+		await addGuildSchema();
+		await addUserSchema();
+		await addClientSchema();
+	}
 }
 
-Client.defaultGuildSchema
-	.add('roles', (schema) => {
-		schema.add('moderator', 'role').add('muted', 'role');
-	})
-	.add('levels', (schema) => {
-		schema
-			.add('channelBlacklist', 'channel', {
-				array: true,
-				configurable: false,
-			})
-			.add('roleRewards', 'any', { array: true });
-	})
-	.add('bannedWords', 'string', { array: true })
-	.add('automod', (schema) => {
-		schema
-			.add('links', (schema) => {
-				schema
-					.add('channelBlacklist', 'channel', { array: true })
-					.add('userBlacklist', 'user', { array: true });
-			})
-			.add('links', (schema) => {
-				schema
-					.add('channelBlacklist', 'channel', { array: true })
-					.add('userBlacklist', 'user', { array: true });
-			});
-	});
-
-Client.defaultUserSchema.add('levels', (schema) => {
-	schema
-		.add('experience', 'Integer', {
-			default: 0,
-			configurable: false,
-		})
-		.add('fullExperience', 'Integer', {
-			default: 0,
-			configurable: false,
-		})
-		.add('level', 'Integer', {
-			default: 0,
-			configurable: false,
-		})
-		.add('lastMessage', 'Integer', {
-			default: 0,
-			configurable: false,
-		});
-});
-
 const client = new Client(config);
+
+client.start();
 
 client.login(token);
