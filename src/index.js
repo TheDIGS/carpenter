@@ -1,8 +1,9 @@
 const Akairo = require('discord-akairo');
+const { join } = require('path');
 
 class Client extends Akairo.AkairoClient {
     constructor() {
-        super({});
+        super({ disableMentions: 'everyone', ownerID: '' });
 
         this.setup();
 
@@ -11,18 +12,19 @@ class Client extends Akairo.AkairoClient {
 
     setup() {
         this.commandHandler = new Akairo.CommandHandler(this, {
-            directory: 'src/commands',
+            directory: join(__dirname, 'commands/'),
             prefix: '!',
             commandUtil: true,
             handleEdits: true,
+            allowMention: true,
         });
 
         this.inhibitorHandler = new Akairo.InhibitorHandler(this, {
-            directory: 'src/inhibitors',
+            directory: join(__dirname, 'listeners/'),
         });
 
         this.listenerHandler = new Akairo.ListenerHandler(this, {
-            directory: 'src/listeners',
+            directory: join(__dirname, 'listeners/'),
         });
 
         this.listenerHandler.setEmitters({
@@ -42,6 +44,8 @@ class Client extends Akairo.AkairoClient {
         this.commandHandler.loadAll();
 
         this.login(process.env.DISCORD_TOKEN);
+
+        console.log(this);
     }
 }
 
