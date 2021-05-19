@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "watch": true,
+        "target": "esnext",
+        "module": "commonjs",
+        "lib": ["ESNext"],
+        "allowJs": true,
+        "outDir": "build",
+        "types": ["node"],
+        "moduleResolution": "node",
+        "resolveJsonModule": true
+    },
+    "include": ["src"],
+    "exclude": ["node_modules"]
+}

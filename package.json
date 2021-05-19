@@ -1,0 +1,23 @@
+{
+    "name": "carpenter-akairo",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon build/app.js",
+        "watch": "tsc"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@types/ws": "^7.4.4",
+        "discord-akairo": "^8.1.0",
+        "discord.js": "^12.5.3"
+    },
+    "devDependencies": {
+        "@types/node": "^15.3.0",
+        "nodemon": "^2.0.7",
+        "typescript": "^4.2.4"
+    }
+}
